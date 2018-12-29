@@ -10,22 +10,19 @@
     <p>Stellarium</p>
 
     <h2 data-bind="text: tagline"></h2>
-    <select data-bind="options: constellationsList" size="5" multiple="true"></select>
-    <!-- <select data-bind="value: tagline">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
-    </select>  -->
+    <select data-bind="
+        options: constellationsList,
+        optionsText: 'Name',
+        optionsValue: 'Name'">
+    </select>
 
 
-
-
-
-
-
-
-
+    <!-- DEVO FARE UN CICLO FOR CHE AGGIUNGE OPTIONS
+    OPPURE UNO CHE PRENDE I NOMI DA QUELLO ORIGINALE E LI METTE IN UN ARRAY
+    LA SECONDA OPZIONE PERO' MI PRECLUDEREBBE DAL VERIFICARE CHE L'OPZIONE
+    SCELTA SIA CORRISPONDENTE AD UN DETERMINATO VALORE
+    A MENO CHE IO NON FACCIA UN CICLO CHE VERIFICA ANCHE I VALORI 
+    (MA CREDO SIA UN CASINO) -->
 
 
 
@@ -36,12 +33,5 @@
     </script>
     <script src="js/knockout-3.4.2.js"></script>
     <script src="js/datadisplay.js"></script>
-    <!-- <script>
-        $.getJSON( "constellations.json", function(results) {
-
-            console.log(results.constellations[1].Name);
-
-        });
-    </script> -->
 </body>
 </html>
