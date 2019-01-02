@@ -23,26 +23,34 @@
     
     function datadisplay() {
         let selectedIndex = document.getElementsByTagName('select')[0].selectedIndex;
-        console.log(selectedIndex);
+
         links = [];
         nodes = [];
-        var self = this;
 
+        var self = this; // i seriously do not know what this does but everybody online says it helps :l
+
+        // this line basically does nodes alone thank you observable.com ily
+        // what it does is it takes raw data from the json and parses it into a majestic mapped data object
         
         nodes = selectelements.constellations[selectedIndex].stars.map(d => Object.create(d));
         
-        
-    
-
         // so links has to be an array, meaning that i'll have to figure out a way to transform the lines in my json into "source" and "target" for my links
         // links are figured out here
+
         for (let i = 0; i < selectelements.constellations.length; i++){
+
             if( i == document.getElementsByTagName('select')[0].selectedIndex){
+                
                 console.log(selectelements.constellations[i].Name)
+
                 for (let j = 0; j < selectelements.constellations[i].lines.length; j++){
+
                     for (let k = 0; k < 2; k++){
+
                         let obj = {}
+
                         if(k == 0){
+
                             obj.source = selectelements.constellations[i].lines[j][k];                          
                             obj.target = selectelements.constellations[i].lines[j][k+1];
 
@@ -52,13 +60,8 @@
                     }
                 }  
             }           
-        }
+        }        
 
-        // now... for the nodes 
-        // this function is launched at start, so i have to code a way for it to populate nodes too
-
-
-        
         self.constellationsList = ko.observableArray(selectelements.constellations);
 
     }
@@ -66,9 +69,8 @@
     ko.applyBindings (new datadisplay()); 
 
     document.getElementsByTagName('select')[0].value = '';
-
-    
-    //parse links to nodes
+   
+    // parse links to nodes (or basically avoid doing stuff twice)
     links.forEach(function(link){
         link.source = nodes[link.source] ||
             (nodes[link.source] = {name: link.source});
@@ -76,7 +78,7 @@
             (noses[link.target] = {name: link.target});
     });
 
-    //add svg!
+    // here is where i add all of my nodes and links with d3js, and program the drag function
 
     var svgappend = function() {
         document.getElementById("svg").remove();
@@ -116,8 +118,8 @@
         }
     }
 
+    // this is what triggers function after gathering data (and choosing a constellation)
+
     document.getElementsByTagName('select')[0].onchange = function() {datadisplay(); svgappend();}
-
-
 
 //});
