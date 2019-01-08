@@ -117,7 +117,7 @@
         force.start();
 
         // adding the svg *^*
-        var svg = d3.select("body")
+        var svg = d3.select(".col-8")
             .append("svg")
             .attr("width", width)
             .attr("height", height)

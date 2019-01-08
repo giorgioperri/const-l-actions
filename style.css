@@ -8,3 +8,19 @@
     stroke: #000;
     stroke-width: 2px;
 }
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+  }
+  
+#logo {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.col-4 {
+    margin-top: auto;
+    margin-bottom: auto;
+}
