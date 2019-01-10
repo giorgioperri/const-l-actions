@@ -1,33 +1,63 @@
 //$(document).ready(function(){
+    
+    MicroModal.show('modal-1');
+
+    
+
+    (function($){
+ 
+        $.fn.shuffle = function() {
+     
+            var allElems = this.get(),
+                getRandom = function(max) {
+                    return Math.floor(Math.random() * max);
+                },
+                shuffled = $.map(allElems, function(){
+                    var random = getRandom(allElems.length),
+                        randEl = $(allElems[random]).clone(true)[0];
+                    allElems.splice(random, 1);
+                    return randEl;
+               });
+     
+            this.each(function(i){
+                $(this).replaceWith($(shuffled[i]));
+            });
+     
+            return $(shuffled);
+     
+        };
+     
+    })(jQuery);
+
     document.getElementById('svg').setAttribute('height', document.documentElement.clientHeight - 60);
 
     let resizer = function(){
         document.getElementById('svg').setAttribute('height', document.documentElement.clientHeight - 60);
-        height = document.documentElement.clientHeight;
+        height = document.documentElement.clientHeight - 60;
     }
     
-
-
     let selectedIndex = document.getElementsByTagName('select')[0].selectedIndex;
-
+    let constName;
+  
 
     let width  = document.getElementsByClassName('col-8')[0].clientWidth;
     let height = document.documentElement.clientHeight -60;
-    let r = 7;
 
     let links = [];
     let nodes = []; 
+    let score = 0;
     
-    $( window ).resize(function() {
+    $(window).resize(function() {
         resizer();
     });
 
-    $('#selector').change(function(){
+    $(selectedIndex).change(function(){
         resizer();
     });
 
        
-    self.tagline = ko.observable('Choose a Constellation');
+    self.tagline = ko.observable('Guess the Constellation');
+    self.constellation = ko.observable('Andromeda');
 
     var data = (function() {
         var json = null;
@@ -43,9 +73,48 @@
         return json;
     })();
 
+    let rng = 1;
+
     
     function datadisplay() {
-        selectedIndex = document.getElementsByTagName('select')[0].selectedIndex;
+
+        if(score == 10){
+            MicroModal.show('modal-3');
+        }
+       
+        selectedIndex = Math.floor(Math.random() * 20) + 1;
+
+        constName = data.constellations[selectedIndex].Name;
+        constNameErr1 = data.constellations[Math.floor(Math.random() * 20) + 1].Name;
+        constNameErr2 = data.constellations[Math.floor(Math.random() * 20) + 1].Name;
+        constNameErr3 = data.constellations[Math.floor(Math.random() * 20) + 1].Name;
+
+        while(constName == constNameErr1 || constName == constNameErr2 || constName == constNameErr3
+        || constNameErr1 == constNameErr2 || constNameErr1 == constNameErr3 || constNameErr2 == constNameErr3){
+            constNameErr1 = data.constellations[Math.floor(Math.random() * 20) + 1].Name;
+            constNameErr2 = data.constellations[Math.floor(Math.random() * 20) + 1].Name;
+            constNameErr3 = data.constellations[Math.floor(Math.random() * 20) + 1].Name;
+        }
+
+        $('.button').remove();
+        
+        $('#selectContainer').append("<button id=\"btn1\" class=\"button\" type=\"button\" data-bind=\"text: constName\">" + constName + "</button>");
+        $('#selectContainer').append("<button id=\"btn2\" class=\"button\" type=\"button\">" + constNameErr1 + "</button>");
+        $('#selectContainer').append("<button id=\"btn3\" class=\"button\" type=\"button\">" + constNameErr2 + "</button>");
+        $('#selectContainer').append("<button id=\"btn4\" class=\"button\" type=\"button\">" + constNameErr3 + "</button>");
+
+        $('.button').shuffle();
+
+        $("#btn1").click(function(){
+            score++
+            document.getElementById('score').innerText = "Score: " + score;
+        });
+
+        //console.log(constName);
+
+        for(let i = 0; i < 4; i++){
+            document.getElementsByClassName('button')[i].onclick = function() {datadisplay(); svgappend();}
+        }
 
         links = [];
         nodes = [];
@@ -62,7 +131,7 @@
 
         for (let i = 0; i < data.constellations.length; i++){
 
-            if( i == document.getElementsByTagName('select')[0].selectedIndex){
+            if( i == selectedIndex){
                 
                 //console.log(data.constellations[i].Name)
 
@@ -92,6 +161,8 @@
     ko.applyBindings (new datadisplay()); 
 
     document.getElementsByTagName('select')[0].value = '';
+
+   
    
     // parse links to nodes (or basically avoid doing stuff twice)
 
@@ -124,12 +195,15 @@
         // defining force properties (so edgy)
         // force, nodes and links loaded in and force started (engine at maximum)
         var force = d3.layout.force()
-            .charge(-100)
-            .linkDistance(10)
+            .charge(-500)
+            .linkDistance(80)
             .size([width, height])
             .nodes(nodes)
             .links(links)
             .on("tick", tick);
+
+        var drag = force.drag()
+            .on("dragstart", dragstart);
 
         force.start();
 
@@ -139,25 +213,30 @@
             .attr("width", width)
             .attr("height", height)
             .attr('id', 'svg')
-            .call(d3.behavior.zoom().on("zoom", function() {
-                svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
-                }))
             .append("g");
 
-        // links
+        var link = svg.selectAll(".link"),
+            node = svg.selectAll(".node");
 
-        var link = svg.selectAll(".link")
-            .data(links)
+        force
+            .nodes(nodes)
+            .links(links)
+            .start();
+
+
+        link =
+            link.data(links)
             .enter().append("line")
             .attr("class", "link");
 
-         // nodes
-        var node = svg.selectAll(".node")
-            .data(nodes)
+
+        node = 
+            node.data(nodes)
             .enter().append("circle")
             .attr("class", "node")
-            .attr("r", r)
-            .call(force.drag);
+            .attr("r", 10)
+            .on("dblclick", dblclick)
+            .call(drag);
 
         node
             .append("title")
@@ -186,12 +265,29 @@
                 return d.y;
                 });
             }
-                    
+        
+        function dblclick(d) {
+            d3.select(this).classed("fixed", d.fixed = false);
+        }
+            
+        function dragstart(d) {
+            d3.select(this).classed("fixed", d.fixed = true);
+        }
 
     }
 
-    // this is what triggers function after gathering data (and choosing a constellation)
+    svgappend();
 
-    document.getElementsByTagName('select')[0].onchange = function() {datadisplay(); svgappend();}
+    document.getElementById('howto').onclick = function() {
+        MicroModal.show('modal-1');
+    }
 
+    document.getElementById('about').onclick = function() {
+        MicroModal.show('modal-2');
+    }
+
+    
+    
+    // this is what triggers function after gathering data (and displays a random constellation)
+    
 //});

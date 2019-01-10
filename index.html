@@ -1,19 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>const-l-actions</title>
-    <link rel="shortcut icon" type="image/png" href="favicon.png"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <nav class="navbar navbar-light bg-light">
         <span id="logo" class="navbar-brand mb-0 h1">const-l-actions</span>
     </nav>
+
+
+    <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <header class="modal__header">
+              <h2 class="modal__title" id="modal-1-title">
+                const-l-actions
+              </h2>
+              <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+            </header>
+            <main class="modal__content" id="modal-1-content">
+                <p>In a world full of artificial light and luminous pollution, starry skies and beautiful constellation get lost in an uniform blue tint.</p>
+                <p>Try your best and recognize a constellation by it's mere shape.</p>
+                <p>You may <b>drag</b> stars to stick them in a position help yourself recognize the constellations, or <b>double click</b> on a star to reset it's position.</p>
+                
+            </main>
+            <footer class="modal__footer">
+            <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Ok, I got this!</button>
+            </footer>
+          </div>
+        </div>
+    </div>
+
+    <div class="modal micromodal-slide" id="modal-2" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-2-title">
+            <header class="modal__header">
+              <h2 class="modal__title" id="modal-2-title">
+                const-l-actions
+              </h2>
+              <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+            </header>
+            <main class="modal__content" id="modal-2-content">
+                <p>This project was realized by Giorgio Perri as a web development exam.</p>
+                <p>const-l-action uses the following dependencies</p>
+                <ul>
+                    <li>MicroModal.js</li>
+                    <li>jQuery</li>
+                    <li>konckout.js</li>
+                    <li>Bootstrap</li>
+                    <li>d3.js</li>
+                </ul>
+                <p>This project is open source. Find out more on:</p>
+                <a class="github" target="_blank" href="https://github.com/giorgioperri/const-l-actions">Github - const-l-actions</a>
+            </main>
+            <footer class="modal__footer">
+            <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Close</button>
+            </footer>
+          </div>
+        </div>
+    </div>
+
+    <div class="modal micromodal-slide" id="modal-3" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-3-title">
+            <header class="modal__header">
+              <h2 class="modal__title" id="modal-3-title">
+                const-l-actions
+              </h2>
+              <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+            </header>
+            <main class="modal__content" id="modal-3-content">
+                <p><b>Congratulations!</b></p>
+                <p>You are a true constellation geek!</p>
+                <p>Here, have yourself a nice jingle!</p>
+                <a class="github" target="_blank" href="http://tinytuba.com/">tinytuba</a>
+            </main>
+            <footer class="modal__footer">
+            <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Close</button>
+            </footer>
+          </div>
+        </div>
+    </div>
+
 
     <div class="container">
         <div class="row">
@@ -22,31 +100,39 @@
             </div>
             <div class="col-4">
                 <div id="selection">
-                        <h2 data-bind="text: tagline"></h2>
-                        <div >
-                            <select class="select" id="selector" data-bind="
+                    <h2 data-bind="text: tagline"></h2>
+                    <h4><a id="howto" href="#">how to play</a></h4>
+                    <div id="selectContainer">
+                        <select id="selector" data-bind="
                                 options: constellationsList,
                                 optionsText: 'Name',
-                                optionsValue: 'Name'">   <option value=""></option>    
-                            </select>
-                        </div>
+                                optionsValue: 'Name'">
+                            <option value=""></option>
+                        </select> <br>
+                    </div>
+                    <div id="info">
+                        <h5 id="score">Score: 0</h5>
+                        <h6><a id="about" href="#">about this project</a></h6>
+                    </div>
                 </div>
             </div>
         </div>
-
-       
-
     </div>
- 
 
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.js"
-    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-    crossorigin="anonymous"></script>
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js" integrity="sha384-vhJnz1OVIdLktyixHY4Uk3OHEwdQqPppqYR8+5mjsauETgLOcEynD9oPHhhz18Nw"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
     <script src="js/knockout-3.4.2.js"></script>
     <script src="https://d3js.org/d3.v3.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
     <script src="js/datadisplay.js"></script>
-    
+
 </body>
+
 </html>
