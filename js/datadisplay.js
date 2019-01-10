@@ -1,14 +1,30 @@
 //$(document).ready(function(){
+    document.getElementById('svg').setAttribute('height', document.documentElement.clientHeight - 60);
+
+    let resizer = function(){
+        document.getElementById('svg').setAttribute('height', document.documentElement.clientHeight - 60);
+        height = document.documentElement.clientHeight;
+    }
+    
+
 
     let selectedIndex = document.getElementsByTagName('select')[0].selectedIndex;
 
 
-    let width  = 300;
-    let height = 300;
-    let r = 5;
+    let width  = document.getElementsByClassName('col-8')[0].clientWidth;
+    let height = document.documentElement.clientHeight -60;
+    let r = 7;
 
     let links = [];
-    let nodes = [];   
+    let nodes = []; 
+    
+    $( window ).resize(function() {
+        resizer();
+    });
+
+    $('#selector').change(function(){
+        resizer();
+    });
 
        
     self.tagline = ko.observable('Choose a Constellation');
@@ -78,6 +94,7 @@
     document.getElementsByTagName('select')[0].value = '';
    
     // parse links to nodes (or basically avoid doing stuff twice)
+
     links.forEach(function(link){
         link.source = nodes[link.source] ||
             (nodes[link.source] = {name: link.source});
@@ -108,7 +125,7 @@
         // force, nodes and links loaded in and force started (engine at maximum)
         var force = d3.layout.force()
             .charge(-100)
-            .linkDistance(20)
+            .linkDistance(10)
             .size([width, height])
             .nodes(nodes)
             .links(links)

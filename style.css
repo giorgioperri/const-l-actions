@@ -1,11 +1,11 @@
 .node {
-    fill: #c2f;
-    stroke: #000;
+    fill: #f6EEE8;
+    stroke: #EDA7A7;
     stroke-width: 2px;
 }
 
 .link {
-    stroke: #000;
+    stroke: #EDA7A7;;
     stroke-width: 2px;
 }
 
@@ -13,14 +13,28 @@
     display: inline-block;
     float: none;
     vertical-align: top;
-  }
+}
+
+.bg-light {
+    background-color: #a387a7 !important;
+}
   
 #logo {
     margin-left: auto;
     margin-right: auto;
+    color: #f6EEE8;
+
 }
 
 .col-4 {
     margin-top: auto;
     margin-bottom: auto;
+}
+
+body {
+    background-color: #756477;
+}
+
+h2 {
+    color: #f6EEE8;
 }

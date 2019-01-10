@@ -18,13 +18,13 @@
     <div class="container">
         <div class="row">
             <div class="col-8 d-flex justify-content-center">
-                <svg id="svg" height="300"></svg>
+                <svg id="svg" height="100%"></svg>
             </div>
             <div class="col-4">
                 <div id="selection">
                         <h2 data-bind="text: tagline"></h2>
-                        <div>
-                            <select data-bind="
+                        <div >
+                            <select class="select" id="selector" data-bind="
                                 options: constellationsList,
                                 optionsText: 'Name',
                                 optionsValue: 'Name'">   <option value=""></option>    
