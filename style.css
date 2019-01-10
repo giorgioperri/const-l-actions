@@ -1,3 +1,15 @@
+ .ajaxProgress {
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    z-index: 1;
+ }
+
+ #loader{
+    width: 100px;
+    height: 100px;
+ }
+
 .node {
     fill: #f6EEE8;
     stroke: #444b69;

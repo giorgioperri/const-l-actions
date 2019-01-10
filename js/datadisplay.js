@@ -1,7 +1,31 @@
-//$(document).ready(function(){
+// $(document).ready(function(){
+   
+    /*  
+        -- RECAP --
     
-    MicroModal.show('modal-1');
+        -- Mandatory Characteristics --
 
+        - Single Html page with local dependencies or CDN 
+            i used both local and cdn dependencies for micromodal, jquery, knockout, bootstrap and d3
+        - At least one AJAX call to an API or a local JSON
+            i used a local JSON call with a database i found online
+        - Use of a templating library
+            i used knockoutjs to template the hidden select value and the tagline
+        - Use of an interactive graph
+            i used d3 force layout to render stars and links between them
+        - Use of javascript generated SVGs
+            d3 renders SVGs for the grph and appends them to the desired div
+        - A funcionality that requires at least an user chosen parameter
+            users could choose a value from the hidden select bar and can choose between 4 options when guessing the constellations
+    
+        -- Bonus Characteristics --
+        
+        - Code version control using Git and publishing on Github
+            did that on https://github.com/giorgioperri/const-l-actions
+        - Custom animated elements during data loading
+            inserted a trippy gif to entertain the user when "waiting for the data"
+    
+    */ 
     
 
     (function($){
@@ -68,6 +92,8 @@
             'dataType': "json",
             'success': function(data) {
                 json = data;
+                $('.ajaxProgress').hide();
+                MicroModal.show('modal-1');
             }
         });
         return json;
@@ -290,4 +316,4 @@
     
     // this is what triggers function after gathering data (and displays a random constellation)
     
-//});
+// });
