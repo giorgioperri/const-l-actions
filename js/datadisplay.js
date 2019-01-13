@@ -26,8 +26,9 @@
             inserted a trippy gif to entertain the user when "waiting for the data"
     
     */ 
-    
 
+   
+    
     (function($){
  
         $.fn.shuffle = function() {
@@ -53,6 +54,8 @@
      
     })(jQuery);
 
+    //god bless you Chris Coyier
+
     document.getElementById('svg').setAttribute('height', document.documentElement.clientHeight - 60);
 
     let resizer = function(){
@@ -65,20 +68,44 @@
   
 
     let width  = document.getElementsByClassName('col-8')[0].clientWidth;
+
+    let r = 10;
+
     let height = document.documentElement.clientHeight -60;
 
     let links = [];
     let nodes = []; 
     let score = 0;
+    var resizeTimer;
+
+    if($(window).width() <= 580){
+        document.getElementById("col4").classList.remove("col-4");
+        document.getElementById("col4").classList.add("col-12");
+        height = 300;
+    }
     
-    $(window).resize(function() {
+    $(window).resize(function(e) {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
         resizer();
+        if($(window).width() <= 580){
+            document.getElementById("col4").classList.remove("col-4");
+            document.getElementById("col4").classList.add("col-12");
+            height = 100;
+        } else if($(window).width() > 580){
+            document.getElementById("col4").classList.remove("col-12");
+            document.getElementById("col4").classList.add("col-4");
+            r = 10;
+        }
+        width  = document.getElementsByClassName('col-8')[0].clientWidth
+        datadisplay();
+        svgappend();
+        }, 250);
     });
 
     $(selectedIndex).change(function(){
         resizer();
     });
-
        
     self.tagline = ko.observable('Guess the Constellation');
     self.constellation = ko.observable('Andromeda');
@@ -100,7 +127,6 @@
     })();
 
     let rng = 1;
-
     
     function datadisplay() {
 
@@ -260,7 +286,7 @@
             node.data(nodes)
             .enter().append("circle")
             .attr("class", "node")
-            .attr("r", 10)
+            .attr("r", r)
             .on("dblclick", dblclick)
             .call(drag);
 

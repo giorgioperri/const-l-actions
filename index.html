@@ -37,6 +37,7 @@
                 <p>In a world full of artificial light and luminous pollution, starry skies and beautiful constellation get lost in an uniform blue tint.</p>
                 <p>Try your best and recognize a constellation by it's mere shape.</p>
                 <p>You may <b>drag</b> stars to stick them in a position help yourself recognize the constellations, or <b>double click</b> on a star to reset it's position.</p>
+                <p><b>Resizing</b> the page will automatically sort a new constellation.</p>
                 
             </main>
             <footer class="modal__footer">
@@ -97,12 +98,12 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-8 d-flex justify-content-center">
+            <div class="col-8" id="col8">
                 <svg id="svg" height="100%"></svg>
             </div>
-            <div class="col-4">
+            <div class="col-4" id="col4">
                 <div id="selection">
                     <h2 data-bind="text: tagline"></h2>
                     <h4><a id="howto" href="#">how to play</a></h4>

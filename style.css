@@ -250,3 +250,19 @@ animation: mmslideOut .3s cubic-bezier(0, 0, .2, 1);
 .micromodal-slide .modal__overlay {
 will-change: transform;
 }
+
+@media (max-width: 575.98px) {
+    .row {
+        flex-direction: column;
+    }
+    
+    #svg {
+        width: 100%;
+        overflow: visible;
+        display: block;
+    }
+
+    h5, h6 {
+        text-align: center;
+    }
+}
