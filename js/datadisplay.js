@@ -185,8 +185,6 @@
 
             if( i == selectedIndex){
                 
-                //console.log(data.constellations[i].Name)
-
                 for (let j = 0; j < data.constellations[i].lines.length; j++){
 
                     for (let k = 0; k < 2; k++){
@@ -284,7 +282,7 @@
 
         node = 
             node.data(nodes)
-            .enter().append("circle")
+            .enter().append("circle").classed("pulse", true)
             .attr("class", "node")
             .attr("r", r)
             .on("dblclick", dblclick)

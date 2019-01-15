@@ -12,12 +12,12 @@
 
 .node {
     fill: #f6EEE8;
-    stroke: #444b69;
+    stroke: #ffc8c8;
     stroke-width: 2px;
 }
 
 .link {
-    stroke: #444b69;;
+    stroke: #f6eee8;
     stroke-width: 2px;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .bg-light {
-    background-color: #30324d !important;
+    background-color: transparent !important;
 }
   
 #logo {
@@ -41,10 +41,14 @@
 .col-4 {
     margin-top: auto;
     margin-bottom: auto;
+    padding-right: 100px;
 }
 
 body {
-    background-color: #1a1c38;
+    background-color: #181848;
+    background-size: auto;
+    background-position-y: -100px;
+    background-image: url(sky.png);
 }
 
 h2 {
@@ -59,7 +63,7 @@ h2 {
 .button{
     display: flex;
     justify-content: center;
-    background-color: #444b69;
+    background-color: #715f89;
     border: none;
     color: #f6EEE8;
     padding: 10px;
@@ -67,6 +71,9 @@ h2 {
     cursor: pointer;
     border-radius: 9px;
     width: 100%;
+    -webkit-box-shadow: 10px 10px 35px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 10px 10px 35px 0px rgba(0,0,0,0.3);
+    box-shadow: 10px 10px 35px 0px rgba(0,0,0,0.3);
 }
 
 .button:hover{
