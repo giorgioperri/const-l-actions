@@ -10,6 +10,10 @@
     height: 100px;
  }
 
+ #skipper{
+    color: #2c2151;
+ }
+
 .node {
     fill: #f6EEE8;
     stroke: #ffc8c8;
@@ -36,6 +40,18 @@
     margin-right: auto;
     color: #f6EEE8;
 
+}
+
+i {
+    margin-left: 10px;
+}
+
+#right {
+    color: #8bb271;
+}
+
+#wrong {
+    color: #e06c75;
 }
 
 .col-4 {

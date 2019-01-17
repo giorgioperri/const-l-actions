@@ -10,12 +10,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
         crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 
 <body>
 
     <nav class="navbar navbar-light bg-light">
         <span id="logo" class="navbar-brand mb-0 h1">const-l-actions</span>
+        <span id="skipper">skip</span>
     </nav>
 
     
@@ -62,9 +64,10 @@
                 <ul>
                     <li>MicroModal.js</li>
                     <li>jQuery</li>
-                    <li>konckout.js</li>
+                    <li>knockout.js</li>
                     <li>Bootstrap</li>
                     <li>d3.js</li>
+                    <li>Font Awesome</li>
                 </ul>
                 <p>This project is open source. Find out more on:</p>
                 <a class="github" target="_blank" href="https://github.com/giorgioperri/const-l-actions">Github - const-l-actions</a>
@@ -116,7 +119,12 @@
                         </select> <br>
                     </div>
                     <div id="info">
-                        <h5 id="score">Score: 0</h5>
+                        <div class="scoring">
+                            <h5 id="score">Score: 0 
+                                <i class="fas fa-thumbs-up" id="right"></i>
+                                <i class="fas fa-thumbs-down" id="wrong"></i>
+                            </h5>
+                        </div>
                         <h6><a id="about" href="#">about this project</a></h6>
                     </div>
                 </div>
