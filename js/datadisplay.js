@@ -56,7 +56,9 @@ $('#wrong').css("opacity", "0");
 
 })(jQuery);
 
-//god bless you Chris Coyier
+//god bless you Chris Coyier for this function
+
+//defining some useful little snippets of code to ensure the size of the pagee stays coherent
 
 document.getElementById('svg').setAttribute('height', document.documentElement.clientHeight - 60);
 
@@ -65,11 +67,16 @@ let resizer = function () {
     height = document.documentElement.clientHeight - 60;
 }
 
-let selectedIndex = document.getElementsByTagName('select')[0].selectedIndex;
+let width = document.getElementsByClassName('col-8')[0].clientWidth;
+
+//declaring some variables to check out stuff later on in the project
+
+//these 2 i use for testing i like em here
+
+let selectedIndex = document.getElementsByTagName('select')[0].selectedIndex; 
 let constName;
 
-
-let width = document.getElementsByClassName('col-8')[0].clientWidth;
+//declaring important variables to use with d3 later on
 
 let r = 10;
 
@@ -78,13 +85,20 @@ let height = document.documentElement.clientHeight - 60;
 let links = [];
 let nodes = [];
 let score = 0;
+
+//declaring a variable to use when resizing the window (responsive stuff u know)
+
 var resizeTimer;
+
+//making the app responsive moving classes here and there
 
 if ($(window).width() <= 580) {
     document.getElementById("col4").classList.remove("col-4");
     document.getElementById("col4").classList.add("col-12");
     height = 300;
 }
+
+//writing the function that adapts the whole app on resizing
 
 $(window).resize(function (e) {
     clearTimeout(resizeTimer);
@@ -105,12 +119,18 @@ $(window).resize(function (e) {
     }, 250);
 });
 
+//the app resizes on changing the constellation
+
 $(selectedIndex).change(function () {
     resizer();
 });
 
+//here i use knockout to pass data into html
+
 self.tagline = ko.observable('Guess the Constellation');
 self.constellation = ko.observable('Andromeda');
+
+//here goes the ajax call, with a return so that i get my data out of the function scope
 
 var data = (function () {
     var json = null;
@@ -128,14 +148,22 @@ var data = (function () {
     return json;
 })();
 
+//this  variable is used to sort out numbers for randomic purpouses
+
 let rng = 1;
+
+//here starts the main function
 
 function datadisplay() {
 
+    //show the congratulations modal on scoring 10 points
 
     if (score == 10) {
         MicroModal.show('modal-3');
     }
+
+    //selecting 4 random constellazions: one will be the right answer
+    //random indexes are used to move around stuff
 
     selectedIndex = Math.floor(Math.random() * 20) + 1;
 
@@ -144,12 +172,16 @@ function datadisplay() {
     constNameErr2 = data.constellations[Math.floor(Math.random() * 20) + 1].Name;
     constNameErr3 = data.constellations[Math.floor(Math.random() * 20) + 1].Name;
 
+    //here i make sure no buttons have the same answer with a while cyle
+
     while (constName == constNameErr1 || constName == constNameErr2 || constName == constNameErr3
         || constNameErr1 == constNameErr2 || constNameErr1 == constNameErr3 || constNameErr2 == constNameErr3) {
         constNameErr1 = data.constellations[Math.floor(Math.random() * 20) + 1].Name;
         constNameErr2 = data.constellations[Math.floor(Math.random() * 20) + 1].Name;
         constNameErr3 = data.constellations[Math.floor(Math.random() * 20) + 1].Name;
     }
+
+    //removing buttons on new function call, to then create new ones
 
     $('.button').remove();
 
@@ -158,7 +190,11 @@ function datadisplay() {
     $('#selectContainer').append("<button id=\"btn3\" class=\"button\" type=\"button\">" + constNameErr2 + "</button>");
     $('#selectContainer').append("<button id=\"btn4\" class=\"button\" type=\"button\">" + constNameErr3 + "</button>");
 
+    //this shuffles the buttons in a random order
+
     $('.button').shuffle();
+
+    //on clicking the right button i will show thumbs up, augment the score and update score on html
 
     $("#btn1").click(function () {
         $('#right').css("opacity", "1");
@@ -167,11 +203,15 @@ function datadisplay() {
         setTimeout(function () { $('#right').fadeOut() }, 1000);
     });
 
+    //on clicking the wrong button, showing the wrong feedback
+
     $('#btn2, #btn3, #btn4').click(function () {
         $('#wrong').css("opacity", "1");
         setTimeout(function () { $('#wrong').fadeOut() }, 1000);
         document.getElementById('score').innerHTML = "Score: " + score + "<i class=\"fas fa-thumbs-down\" id=\"wrong\"></i>";
     });
+
+    //easter egg?????
 
     $("#skipper").click(function () {
         score++;
@@ -179,12 +219,13 @@ function datadisplay() {
         datadisplay(); svgappend();
     });
 
-    //console.log(constName);
-
+    //making each button start the function all over again
 
     for (let i = 0; i < 4; i++) {
         document.getElementsByClassName('button')[i].onclick = function () { datadisplay(); svgappend(); }
     }
+
+    //declaring links and nodes arrays
 
     links = [];
     nodes = [];
@@ -197,7 +238,11 @@ function datadisplay() {
     nodes = data.constellations[selectedIndex].stars.map(d => Object.create(d));
 
     // so links has to be an array, meaning that i'll have to figure out a way to transform the lines in my json into "source" and "target" for my links
-    // links are figured out here
+    // links are figured out here, with cycles.
+
+    //... inside cycles
+
+    //... inside cycles
 
     for (let i = 0; i < data.constellations.length; i++) {
 
@@ -222,11 +267,17 @@ function datadisplay() {
         }
     }
 
+    //this i use to give my hidden select i use for testing the elements i need
+
     self.constellationsList = ko.observableArray(data.constellations);
 
 }
 
+//as last comment
+
 ko.applyBindings(new datadisplay());
+
+//giving the select an empty value to start with
 
 document.getElementsByTagName('select')[0].value = '';
 
@@ -346,6 +397,8 @@ var svgappend = function () {
 
 svgappend();
 
+//showing modals on requests
+
 document.getElementById('howto').onclick = function () {
     MicroModal.show('modal-1');
 }
@@ -353,9 +406,5 @@ document.getElementById('howto').onclick = function () {
 document.getElementById('about').onclick = function () {
     MicroModal.show('modal-2');
 }
-
-
-
-    // this is what triggers function after gathering data (and displays a random constellation)
 
 // });
